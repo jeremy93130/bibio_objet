@@ -1,7 +1,4 @@
-# activer la règle de réecriture d'url
-RewriteEngine on
-# On vérifie que la requête correspond à un repertoire 
-RewriteCond ${REQUEST_FILENAME} !d
-# on vérifie que la requête correspond à un fichier
-RewriteCond ${REQUEST_FILENAME} !f
-RewriteRule (.*) home.php [L]
+# activer la regle de reecriture d'url
+RewriteEngine On
+# rediriger vers le dossier views
+RewriteRule ^(.*)$ views/$1 [L]
