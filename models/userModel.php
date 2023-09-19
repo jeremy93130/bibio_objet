@@ -39,8 +39,9 @@ class User
             } else {
                 if (password_verify($password, $user["password"])) {
                     // Le mail est bon et le mot de passe est bon
-                    setcookie("id_user", $user['id_user'], time() + 86400, "/", "http://localhost/biblio_objet", false, true);
-                    setcookie("user_role", $user["role"], time() + 86400, "/", "http://localhost/biblio_objet", false, true);
+                    setcookie("user_id", $user['id_user'], time() + 86400, "/", "localhost", false, true);
+                    setcookie("name", $user['name'], time() + 86400, "/", "localhost", false, true);
+                    setcookie("user_role", $user["role"], time() + 86400, "/", "localhost", false, true);
                     header("Location: http://localhost/biblio_objet/views/list_book.php");
                 } else {
                     header("location:" . $_SERVER['HTTP_REFERER']);
@@ -54,12 +55,26 @@ class User
     // Méthode pour se déconnecter
     public static function disconnect()
     {
+
     }
 
-    // Méthode pour emprunter un livre
-    public static function borrow()
+    // Méthode pour avoir l'historique des emprunts d'un utilisateur
+    public static function borrow($idUser)
     {
+        // Se connecter à la base de données 
+        $db = Database::dbConnect();
 
+        // Préparer la requête :
+        $request = $db->prepare('SELECT id_borrow, state, start_date,end_date,user_id, book_id, id_book, title, author FROM borrows, books WHERE borrows.book_id = books.id_book');
+
+        // Executer la requête :
+        try {
+            $request->execute();
+            $borrow = $request->fetchAll(PDO::FETCH_ASSOC);
+            return $borrow;
+        } catch (PDOException $error) {
+            echo $error->getMessage();
+        }
     }
 
     // Méthode pour se désinscrire

@@ -1,7 +1,43 @@
 body {
-    background: grey;
+    margin: 0;
 }
 
 form {
     display: flex;
+}
+
+/* Page Nav.php  */
+
+nav {
+    display: flex;
+    justify-content: end;
+    background-color: black;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    margin: 0 20px;
+    padding: 4px 10px;
+}
+
+/* Page Historic.php */
+
+table {
+    background-color: rgba(21, 53, 24, 0.37);
+    margin: auto;
+    border: 1px solid black;
+}
+
+table a {
+    text-decoration:underline;
+    color: black;
+
+}
+
+table td:not(table td:last-child), table th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 10px 0;
 }
